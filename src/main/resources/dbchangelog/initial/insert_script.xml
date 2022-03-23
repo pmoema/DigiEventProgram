@@ -1,0 +1,34 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    
+    <changeSet author="tpmoema" id="insert_script_0.1" context="localhost,test,prod">
+		<insert tableName="event_type">
+			<column  name="type_key"  value="FUNERAL"/>  
+			<column  name="description"  value="Funeral"/> 
+		</insert>
+		<insert tableName="event_type">
+			<column  name="type_key"  value="WEDDING"/>  
+			<column  name="description"  value="Wedding"/> 
+		</insert>
+	</changeSet>
+	
+	<changeSet author="tpmoema" id="insert_script_0.2" context="localhost,test,prod">
+		<insert tableName="theme">
+			<column  name="theme_key"  value="FUNERAL_BASIC"/>  
+			<column  name="description"  value="Funeral Basic"/> 
+			<column name="event_type_id" valueComputed="(SELECT id FROM event_type WHERE type_key = 'FUNERAL')"/>
+		</insert>
+		<insert tableName="theme">
+			<column  name="theme_key"  value="WEDDING_BASIC"/>  
+			<column  name="description"  value="Wedding Basic"/> 
+			<column name="event_type_id" valueComputed="(SELECT id FROM event_type WHERE type_key = 'WEDDING')"/>
+		</insert>
+	</changeSet>
+	
+	
+    
+</databaseChangeLog>

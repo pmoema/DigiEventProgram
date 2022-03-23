@@ -1,0 +1,279 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    
+    <changeSet author="tpmoema" id="create_table_script_0.1" context="localhost,test,prod">
+		<preConditions onFail="MARK_RAN">
+			<tableExists schemaName="public" tableName="property" />
+		</preConditions>
+		
+		<dropTable cascadeConstraints="true" schemaName="public" tableName="property" />
+	</changeSet>
+	
+	<changeSet author="tpmoema" id="create_table_script_0.2" context="localhost,test,prod">
+		<createTable schemaName="public" tableName="property">
+			<column autoIncrement="true" name="id" type="integer" >
+				<constraints primaryKey="true"/>
+			</column>
+			
+			<column name="property_filename" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="property_key" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="property_value" type="text">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="environment" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>		
+		<addUniqueConstraint columnNames="property_filename, property_key" schemaName="public" tableName="property"/>
+         
+         <createTable schemaName="public" tableName="image">
+			<column autoIncrement="true" name="id" type="integer" >
+				<constraints primaryKey="true"/>
+			</column>
+			
+			<column name="image_type" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="image_byte" type="text">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="image_url" type="varchar(512)">
+				<constraints nullable="true"/>
+			</column>
+		</createTable>
+	
+		<createTable schemaName="public" tableName="organisation">
+			<column autoIncrement="true" name="id" type="integer" >
+				<constraints primaryKey="true"/>
+			</column>
+			
+			<column name="name" type="varchar(512)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="shortname" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="website" type="varchar(512)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="contact1" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="contact2" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="contact3" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="watsapp" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="facebook" type="varchar(512)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="instagram" type="varchar(512)">
+				<constraints nullable="true"/>
+			</column>		
+			
+			<column name="logo_image_id" type="integer">
+				<constraints nullable="true"/>
+			</column>	
+		</createTable>		
+		<addUniqueConstraint columnNames="name" schemaName="public" tableName="organisation"/>
+		<addForeignKeyConstraint baseColumnNames="logo_image_id"
+                                 baseTableName="organisation"
+                                 constraintName="organisation_logo_image_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="image"/>
+		
+		<createTable schemaName="public" tableName="user">
+			<column autoIncrement="true" name="id" type="integer" >
+				<constraints primaryKey="true"/>
+			</column>
+			
+			<column name="user_email" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="password" type="varchar(512)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="firstname" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="lastname" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="contact_number" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="organisation_id" type="integer">
+				<constraints nullable="true"/>
+			</column>
+		</createTable>		
+		<addUniqueConstraint columnNames="user_email" schemaName="public" tableName="user"/>		
+		<addForeignKeyConstraint baseColumnNames="organisation_id"
+                                 baseTableName="user"
+                                 constraintName="user_organisation_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="organisation"/>
+                                 
+        <createTable schemaName="public" tableName="event_type">
+			<column autoIncrement="true" name="id" type="integer" >
+				<constraints primaryKey="true"/>
+			</column>
+			
+			<column name="type_key" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="description" type="varchar(512)">
+				<constraints nullable="false"/>
+			</column>			
+		</createTable>
+		<addUniqueConstraint columnNames="type_key" schemaName="public" tableName="event_type"/>
+		
+		<createTable schemaName="public" tableName="theme">
+			<column autoIncrement="true" name="id" type="integer" >
+				<constraints primaryKey="true"/>
+			</column>
+			
+			<column name="theme_key" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="description" type="varchar(512)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="event_type_id" type="integer">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="theme_image_id" type="integer">
+				<constraints nullable="true"/>
+			</column>			
+		</createTable>
+		<addUniqueConstraint columnNames="theme_key, event_type_id" schemaName="public" tableName="theme"/>
+		<addForeignKeyConstraint baseColumnNames="event_type_id"
+                                 baseTableName="theme"
+                                 constraintName="theme_event_type_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="event_type"/>
+        <addForeignKeyConstraint baseColumnNames="theme_image_id"
+                                 baseTableName="theme"
+                                 constraintName="theme_image_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="image"/>
+                                 
+		<createTable schemaName="public" tableName="event">
+			<column autoIncrement="true" name="id" type="integer" >
+				<constraints primaryKey="true"/>
+			</column>
+			
+			<column name="event_description" type="varchar(512)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="start_date" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="end_date" type="timestamp">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="online_status" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>			
+			
+			<column name="theme_id" type="integer">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="theme_id"
+                                 baseTableName="event"
+                                 constraintName="event_theme_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="theme"/>
+                                 
+		<createTable schemaName="public" tableName="funeral">
+			<column autoIncrement="true" name="id" type="integer" >
+				<constraints primaryKey="true"/>
+			</column>
+			
+			<column name="event_id" type="integer">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="deceased_name1" type="varchar(512)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="deceased_name2" type="varchar(512)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="deceased_name3" type="varchar(512)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="deceased_nickname" type="varchar(512)">
+				<constraints nullable="true"/>
+			</column>
+			
+			<column name="deceased_lastname" type="varchar(512)">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="birth_date" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="deceased_date" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+			
+			<column name="bible_verse" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>	
+			
+			<column name="obituary" type="text">
+				<constraints nullable="true"/>
+			</column>			
+			
+			<column name="gratitude" type="text">
+				<constraints nullable="true"/>
+			</column>
+		</createTable>
+		<addUniqueConstraint columnNames="event_id" schemaName="public" tableName="funeral"/>
+	</changeSet>
+	
+	
+    
+</databaseChangeLog>
