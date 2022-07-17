@@ -42,15 +42,15 @@
 				<constraints primaryKey="true"/>
 			</column>
 			
+			<column name="image_description" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			
 			<column name="image_type" type="varchar(255)">
 				<constraints nullable="false"/>
 			</column>
 			
-			<column name="image_byte" type="text">
-				<constraints nullable="true"/>
-			</column>
-			
-			<column name="image_url" type="varchar(512)">
+			<column name="image_path" type="varchar(512)">
 				<constraints nullable="true"/>
 			</column>
 		</createTable>
@@ -196,6 +196,10 @@
 				<constraints primaryKey="true"/>
 			</column>
 			
+			<column name="event_key" type="varchar(512)" >
+				<constraints nullable="false"/>
+			</column>
+			
 			<column name="event_description" type="varchar(512)">
 				<constraints nullable="true"/>
 			</column>
@@ -216,6 +220,7 @@
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
+		<addUniqueConstraint columnNames="event_key" schemaName="public" tableName="event"/>
 		<addForeignKeyConstraint baseColumnNames="theme_id"
                                  baseTableName="event"
                                  constraintName="event_theme_id_fkey"
@@ -270,8 +275,17 @@
 			<column name="gratitude" type="text">
 				<constraints nullable="true"/>
 			</column>
+			
+			<column name="front_image_id" type="integer">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
 		<addUniqueConstraint columnNames="event_id" schemaName="public" tableName="funeral"/>
+		<addForeignKeyConstraint baseColumnNames="front_image_id"
+                                 baseTableName="funeral"
+                                 constraintName="funeral_image_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="image"/>
 	</changeSet>
 	
 	

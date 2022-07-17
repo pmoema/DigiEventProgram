@@ -29,6 +29,36 @@
 		</insert>
 	</changeSet>
 	
-	
+	<changeSet author="tpmoema" id="insert_script_0.3" context="localhost,test,prod">
+		<insert tableName="event">
+			<column  name="event_key" value="adminfun01"/>  
+			<column  name="event_description" value="Admin Initial Funeral"/>  
+			<column  name="start_date"  value="2022-01-01"/> 
+			<column  name="end_date"  value="2022-12-31"/> 
+			<column  name="online_status"  value="ONLINE"/>
+			<column name="theme_id" valueComputed="(SELECT id FROM theme WHERE theme_key = 'FUNERAL_BASIC')"/>
+		</insert>
+		
+		<insert tableName="image">
+			<column  name="image_description" value="funeral_front_default"/>  
+			<column  name="image_type" value="png"/>  
+			<column  name="image_path"  value="sysimg/praying-hands.png"/> 
+		</insert>
+		
+		<insert tableName="funeral">
+			<column name="event_id" valueComputed="(SELECT id FROM event WHERE event_key = 'adminfun01')"/> 
+			<column  name="deceased_name1" value="Jimmy"/> 
+			<column  name="deceased_name2" value="Keremi"/> 
+			<column  name="deceased_name3" value=""/> 
+			<column  name="deceased_nickname" value=""/>  
+			<column  name="deceased_lastname"  value="Moreri"/> 
+			<column  name="birth_date" value="1975-06-02"/> 
+			<column  name="deceased_date" value="2022-03-23"/> 
+			<column  name="bible_verse" value="2 Timothy 4:7"/> 
+			<column  name="obituary"  value="Musician and retired elementary school principal Sarah Jones’s love of life didn’t come to an end with her death. Sarah passed away on July 6, 2020 at the age of 79 after a courageous battle with cancer, surrounded by loved ones who will continue to honor her legacy by living their lives to the fullest. Sarah completed her Bachelor’s degree at the University of New York. After teaching for 10 years, she went back to school to complete a Master’s degree in Educational Leadership. Sarah’s pride was in her school and students, and she shared her passion for learning with thousands of children over the years. The simplest pleasures in life brought great joy to Sarah. She loved a quiet evening with friends and a glass of wine in hand. During school breaks Sarah often explored the local hiking trails and found beauty in the spring wildflowers. She had an uncanny ability to find happiness in her daily activities. Her pleasant personality was contagious to everyone she met. Sarah is survived by her husband, Frank; a son, Calvin; a sister, Jenny; and many cousins, nieces, and nephews."/> 
+			<column  name="gratitude" value="Thank you so much for the condolences. We truly appreciated the warm words of comfort. You’re a true friend."/> 
+			<column name="front_image_id" valueComputed="(SELECT id FROM image WHERE image_path = 'sysimg/praying-hands.png')"/>
+		</insert>
+	</changeSet>
     
 </databaseChangeLog>
