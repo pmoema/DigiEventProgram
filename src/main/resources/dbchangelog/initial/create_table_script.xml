@@ -152,7 +152,7 @@
 				<constraints nullable="false"/>
 			</column>
 			
-			<column name="description" type="varchar(512)">
+			<column name="event_type_description" type="varchar(512)">
 				<constraints nullable="false"/>
 			</column>			
 		</createTable>
@@ -167,7 +167,7 @@
 				<constraints nullable="false"/>
 			</column>
 			
-			<column name="description" type="varchar(512)">
+			<column name="theme_description" type="varchar(512)">
 				<constraints nullable="false"/>
 			</column>
 			

@@ -1,4 +1,4 @@
-package com.digievent.service;
+package com.digievent.service.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +11,7 @@ import com.digievent.api.response.v1.funeral.FuneralDetailResponse;
 import com.digievent.api.response.v1.funeral.Undertaker;
 
 @Service
-public class FuneralDetailService {
+public class FuneralDetailServiceImpl {
 
 	public FuneralDetailResponse getFuneralDetails(String eventKey) {
 		FuneralDetailResponse response = new FuneralDetailResponse();

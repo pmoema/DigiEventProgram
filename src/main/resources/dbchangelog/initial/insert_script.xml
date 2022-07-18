@@ -8,23 +8,23 @@
     <changeSet author="tpmoema" id="insert_script_0.1" context="localhost,test,prod">
 		<insert tableName="event_type">
 			<column  name="type_key"  value="FUNERAL"/>  
-			<column  name="description"  value="Funeral"/> 
+			<column  name="event_type_description"  value="Funeral"/> 
 		</insert>
 		<insert tableName="event_type">
 			<column  name="type_key"  value="WEDDING"/>  
-			<column  name="description"  value="Wedding"/> 
+			<column  name="event_type_description"  value="Wedding"/> 
 		</insert>
 	</changeSet>
 	
 	<changeSet author="tpmoema" id="insert_script_0.2" context="localhost,test,prod">
 		<insert tableName="theme">
 			<column  name="theme_key"  value="FUNERAL_BASIC"/>  
-			<column  name="description"  value="Funeral Basic"/> 
+			<column  name="theme_description"  value="Funeral Basic"/> 
 			<column name="event_type_id" valueComputed="(SELECT id FROM event_type WHERE type_key = 'FUNERAL')"/>
 		</insert>
 		<insert tableName="theme">
 			<column  name="theme_key"  value="WEDDING_BASIC"/>  
-			<column  name="description"  value="Wedding Basic"/> 
+			<column  name="theme_description"  value="Wedding Basic"/> 
 			<column name="event_type_id" valueComputed="(SELECT id FROM event_type WHERE type_key = 'WEDDING')"/>
 		</insert>
 	</changeSet>

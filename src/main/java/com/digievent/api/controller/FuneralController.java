@@ -13,7 +13,7 @@ import com.digievent.api.response.v1.funeral.FuneralDetailResponse;
 import com.digievent.api.response.v1.funeral.GratituteResponse;
 import com.digievent.api.response.v1.funeral.ObituaryResponse;
 import com.digievent.api.response.v1.funeral.Undertaker;
-import com.digievent.service.FuneralDetailService;
+import com.digievent.service.impl.FuneralDetailServiceImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +27,7 @@ public class FuneralController {
 	private static final Logger LOG = Logger.getLogger(FuneralController.class);
 	
 	@Autowired
-	private FuneralDetailService funeralDetailService;
+	private FuneralDetailServiceImpl funeralDetailService;
 	
 	@RequestMapping(path = "/{eventKey}", method = RequestMethod.GET)
 	public FuneralDetailResponse getFunerailDetails(@PathVariable("eventKey") String eventKey) {
